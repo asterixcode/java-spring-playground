@@ -1,9 +1,12 @@
 package com.gamersdirectory.gamersapi.exception;
 
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -37,5 +40,35 @@ public class ApiExceptionHandler {
         );
         // 2. return response entity
         return new ResponseEntity<>(apiException, conflict);
+    }
+
+    @ExceptionHandler(value = {ApiNotFoundException.class})
+    public ResponseEntity<Object> handleApiNotFoundException(ApiNotFoundException e) {
+        HttpStatus notFound = HttpStatus.NOT_FOUND;
+
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                notFound,
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(apiException, notFound);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> handleException(MethodArgumentNotValidException exception) {
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+
+        String errorMsg = exception.getBindingResult().getFieldErrors().stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .findFirst()
+                .orElse(exception.getMessage());
+
+        ApiException apiException = new ApiException(
+                errorMsg,
+                badRequest,
+                ZonedDateTime.now(ZoneId.of("Z"))
+        );
+        return new ResponseEntity<>(apiException, badRequest);
     }
 }

@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -13,20 +14,18 @@ import java.util.List;
 @AllArgsConstructor
 public class AccountForm {
 
-    @NotNull @NotEmpty
+    @NotEmpty(message = "Name is required.")
+    @Size(max = 50)
     private String name;
 
-    @NotNull @NotEmpty
+    @NotEmpty
+    @Size(min = 4, max = 15, message = "Nickname size must be between 4 and 15 characters.")
     private String nickname;
 
-    @NotNull @NotEmpty
+    @NotEmpty
     private String location;
 
+    @NotNull
     private List<InterestDTO> interests;
 
-    public AccountForm(String name, String nickname, String location) {
-        this.name = name;
-        this.nickname = nickname;
-        this.location = location;
-    }
 }

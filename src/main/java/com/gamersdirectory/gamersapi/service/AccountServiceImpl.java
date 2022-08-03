@@ -3,7 +3,7 @@ package com.gamersdirectory.gamersapi.service;
 import com.gamersdirectory.gamersapi.dto.AccountDTO;
 import com.gamersdirectory.gamersapi.dto.InterestDTO;
 import com.gamersdirectory.gamersapi.entity.*;
-import com.gamersdirectory.gamersapi.exception.ApiRequestException;
+import com.gamersdirectory.gamersapi.exception.ApiNotFoundException;
 import com.gamersdirectory.gamersapi.repository.AccountRepository;
 import com.gamersdirectory.gamersapi.repository.GameRepository;
 import com.gamersdirectory.gamersapi.repository.LevelRepository;
@@ -12,7 +12,6 @@ import com.gamersdirectory.gamersapi.validation.AccountForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
 @Service
@@ -53,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
 
     private Location findLocationOrFail(String locationName) {
         return locationRepository.findLocationByName(locationName)
-                .orElseThrow(() -> new ApiRequestException(
+                .orElseThrow(() -> new ApiNotFoundException(
                         String.format("Location [ %s ] does not exist.", locationName)));
     }
 
@@ -66,12 +65,12 @@ public class AccountServiceImpl implements AccountService {
 
         for (InterestDTO dto : interests) {
             Game findGame = gameRepository.findByName(dto.getGame())
-                    .orElseThrow(() -> new ApiRequestException(
+                    .orElseThrow(() -> new ApiNotFoundException(
                             String.format("Game [ %s ] does not exist.", dto.getGame())
                     ));
 
             Level findLevel = levelRepository.findByName(dto.getLevel())
-                    .orElseThrow(() -> new ApiRequestException(
+                    .orElseThrow(() -> new ApiNotFoundException(
                             String.format("Level [ %s ] does not exist.", dto.getLevel())
                     ));
 
@@ -96,9 +95,16 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO findById(Long accountId) {
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new EntityNotFoundException(
+                .orElseThrow(() -> new ApiNotFoundException(
                         String.format(ACCOUNT_ID_NOT_FOUND, accountId)
                 ));
         return new AccountDTO(account);
+    }
+
+    @Override
+    public List<InterestDTO> findInterestsByAccountId(Long accountId) {
+        AccountDTO account = findById(accountId);
+
+        return account.getInterests();
     }
 }

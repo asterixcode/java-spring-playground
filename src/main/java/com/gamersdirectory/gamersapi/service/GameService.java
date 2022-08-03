@@ -7,4 +7,5 @@ public interface GameService {
 
     List<Game> listAll();
 
+    List<Game> listTop5Games();
 }
