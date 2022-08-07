@@ -3,7 +3,7 @@ package com.gamersdirectory.gamersapi.service;
 import com.gamersdirectory.gamersapi.dto.AccountDTO;
 import com.gamersdirectory.gamersapi.entity.Account;
 import com.gamersdirectory.gamersapi.entity.Location;
-import com.gamersdirectory.gamersapi.exception.ApiRequestException;
+import com.gamersdirectory.gamersapi.exception.ApiNotFoundException;
 import com.gamersdirectory.gamersapi.repository.AccountRepository;
 import com.gamersdirectory.gamersapi.repository.GameRepository;
 import com.gamersdirectory.gamersapi.repository.LevelRepository;
@@ -106,7 +106,7 @@ class AccountServiceImplTest {
         accountForm.setLocation("WRONG-LOCATION");
 
         assertThatThrownBy(() -> accountService.save(accountForm))
-                .isInstanceOf(ApiRequestException.class)
+                .isInstanceOf(ApiNotFoundException.class)
                 .hasMessageContaining("Location [ %s ] does not exist.", accountForm.getLocation());
     }
 }
