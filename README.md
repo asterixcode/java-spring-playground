@@ -18,7 +18,7 @@ If the payload for creating an Account has different values than those pre-defin
 
 #### Domain model mapped
 
-![](src/main/resources/img/gamers-api-domain-relationship.png)
+![](src/main/resources/static/images/gamers-api-domain-relationship.png)
 
 
 ## ⚙️ Running the API locally
