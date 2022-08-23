@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
         account.setNickname(accountForm.getNickname());
         account.setLocation(findLocation);
 
-        if (!accountForm.getInterests().isEmpty()) {
+        if (accountForm.getInterests() != null) {
             Map<Game, Level> gamesAndLevel = mapGamesAndLevelsOrFail(accountForm);
             List<Interest> interestList = fromMapToList(gamesAndLevel);
             account.setInterests(interestList);
