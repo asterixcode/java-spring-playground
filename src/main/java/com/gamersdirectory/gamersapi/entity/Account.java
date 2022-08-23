@@ -29,12 +29,12 @@ public class Account {
     private String nickname;
 
     @ManyToOne// many accounts have one location
-    @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+    @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE})
     @JoinColumn(name = "location_id")
     private Location location;
 
     @ManyToMany()
-    @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+    @Cascade({ CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "account_interest",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "interest_id"))
