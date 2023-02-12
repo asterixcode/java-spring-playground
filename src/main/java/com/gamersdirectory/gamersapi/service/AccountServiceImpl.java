@@ -1,5 +1,6 @@
 package com.gamersdirectory.gamersapi.service;
 
+import com.gamersdirectory.gamersapi.utils.ErrorMessageEnum;
 import com.gamersdirectory.gamersapi.dto.AccountDTO;
 import com.gamersdirectory.gamersapi.dto.InterestDTO;
 import com.gamersdirectory.gamersapi.entity.*;
@@ -17,7 +18,6 @@ import java.util.*;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    private static final String ACCOUNT_ID_NOT_FOUND = "Account Id %s not found";
     private final AccountRepository accountRepository;
     private final LocationRepository locationRepository;
     private final GameRepository gameRepository;
@@ -53,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
     private Location findLocationOrFail(String locationName) {
         return locationRepository.findLocationByName(locationName)
                 .orElseThrow(() -> new ApiNotFoundException(
-                        String.format("Location [ %s ] does not exist.", locationName)));
+                        String.format(ErrorMessageEnum.LOCATION_NOT_FOUND.getMessage(), locationName)));
     }
 
     private Map<Game, Level> mapGamesAndLevelsOrFail(AccountForm accountForm) {
@@ -66,12 +66,12 @@ public class AccountServiceImpl implements AccountService {
         for (InterestDTO dto : interests) {
             Game findGame = gameRepository.findByName(dto.getGame())
                     .orElseThrow(() -> new ApiNotFoundException(
-                            String.format("Game [ %s ] does not exist.", dto.getGame())
+                            String.format(ErrorMessageEnum.GAME_NOT_FOUND.getMessage(), dto.getGame())
                     ));
 
             Level findLevel = levelRepository.findByName(dto.getLevel())
                     .orElseThrow(() -> new ApiNotFoundException(
-                            String.format("Level [ %s ] does not exist.", dto.getLevel())
+                            String.format(ErrorMessageEnum.LEVEL_NOT_FOUND.getMessage(), dto.getLevel())
                     ));
 
             map.put(findGame, findLevel);
@@ -96,7 +96,7 @@ public class AccountServiceImpl implements AccountService {
     public AccountDTO findById(Long accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new ApiNotFoundException(
-                        String.format(ACCOUNT_ID_NOT_FOUND, accountId)
+                        String.format(ErrorMessageEnum.ACCOUNT_ID_NOT_FOUND.getMessage(), accountId)
                 ));
         return new AccountDTO(account);
     }
