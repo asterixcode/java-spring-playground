@@ -2,9 +2,7 @@ package com.gamersdirectory.gamersapi.dto;
 
 import com.gamersdirectory.gamersapi.entity.Account;
 import com.gamersdirectory.gamersapi.entity.Interest;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class AccountDTO {
 
     private Long id;
