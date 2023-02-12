@@ -1,10 +1,12 @@
 package com.gamersdirectory.gamersapi.validation;
 
 import com.gamersdirectory.gamersapi.dto.InterestDTO;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -25,7 +27,6 @@ public class AccountForm {
     @NotEmpty
     private String location;
 
-    @NotNull
     private List<InterestDTO> interests;
 
 }

@@ -61,8 +61,10 @@ public class AccountController {
                     description = "Not Found: Account Id was not found.",
                     content = @Content)
     })
-    public AccountDTO getById(@PathVariable Long id) {
-        return accountService.findById(id);
+    public ResponseEntity<AccountDTO> getById(@PathVariable Long id) {
+        AccountDTO accountDTO = accountService.findById(id);
+
+        return ResponseEntity.ok(accountDTO);
     }
 
     @GetMapping("/interests/{accountId}")
@@ -76,5 +78,7 @@ public class AccountController {
                     description = "Not Found: Account Id was not found.",
                     content = @Content)
     })
-    public List<InterestDTO> getInterestsByAccountId(@PathVariable  Long accountId) { return accountService.findInterestsByAccountId(accountId); }
+    public List<InterestDTO> getInterestsByAccountId(@PathVariable  Long accountId) {
+        return accountService.findInterestsByAccountId(accountId);
+    }
 }

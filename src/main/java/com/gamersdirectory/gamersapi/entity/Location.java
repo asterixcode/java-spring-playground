@@ -22,7 +22,7 @@ public class Location {
 
     private String name;
 
-    @OneToMany(mappedBy = "location", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "location", orphanRemoval = true)
     private List<Account> accountList = new ArrayList<>();
 
     @Override

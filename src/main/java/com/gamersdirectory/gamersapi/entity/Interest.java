@@ -1,8 +1,9 @@
 package com.gamersdirectory.gamersapi.entity;
 
-import lombok.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -18,12 +19,10 @@ public class Interest {
     private Long id;
 
     @ManyToOne // many interest have the same one game
-    @Cascade(CascadeType.ALL)
     @JoinColumn(name = "game_id")
     private Game game;
 
     @ManyToOne // many interest have the same one level
-    @Cascade(CascadeType.ALL)
     @JoinColumn(name = "level_id")
     private Level level;
 }
