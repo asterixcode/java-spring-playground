@@ -17,16 +17,15 @@ import java.util.List;
 public class AccountForm {
 
     @NotEmpty(message = "Name is required.")
-    @Size(max = 50)
+    @Size(min = 1, max = 50, message = "Name size must be between 1 and 50 characters.")
     private String name;
 
-    @NotEmpty
+    @NotEmpty(message = "Nickname is required.")
     @Size(min = 4, max = 15, message = "Nickname size must be between 4 and 15 characters.")
     private String nickname;
 
-    @NotEmpty
+    @NotEmpty(message = "Location is required.")
     private String location;
 
     private List<InterestDTO> interests;
-
 }

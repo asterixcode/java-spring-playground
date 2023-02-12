@@ -1,18 +1,32 @@
 insert into level (name) values ('NOOB');
+insert into level (name) values ('BEGINNER');
+insert into level (name) values ('NOVICE');
+insert into level (name) values ('INTERMEDIATE');
+insert into level (name) values ('ADVANCED');
+insert into level (name) values ('EXPERT');
+insert into level (name) values ('MASTER');
+insert into level (name) values ('LEGEND');
 insert into level (name) values ('PRO');
+insert into level (name) values ('UNSTOPPABLE');
+insert into level (name) values ('IMMORTAL');
 insert into level (name) values ('INVINCIBLE');
+insert into level (name) values ('GODLIKE');
 
-insert into game (name) values ('fortnite');
-insert into game (name) values ('call of duty');
-insert into game (name) values ('dota');
-insert into game (name) values ('amongus');
-insert into game (name) values ('counter-strike');
-insert into game (name) values ('gta');
+insert into game (name) values ('Fortnite');
+insert into game (name) values ('PUBG');
+insert into game (name) values ('Call of Duty');
+insert into game (name) values ('FIFA');
+insert into game (name) values ('Rocket League');
+insert into game (name) values ('Counter-Strike');
+insert into game (name) values ('Minecraft');
+insert into game (name) values ('GTA');
+insert into game (name) values ('Apex Legends');
+insert into game (name) values ('League of Legends');
 
-insert into location (name) values ('asia');
-insert into location (name) values ('europe');
-insert into location (name) values ('south america');
-insert into location (name) values ('north america');
-insert into location (name) values ('oceania');
-insert into location (name) values ('africa');
+insert into location (name) values ('Asia');
+insert into location (name) values ('Europe');
+insert into location (name) values ('South America');
+insert into location (name) values ('North America');
+insert into location (name) values ('Oceania');
+insert into location (name) values ('Africa');
 
