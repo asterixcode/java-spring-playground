@@ -1,0 +1,28 @@
+{
+ "accountCreatedSuccessfullyResponse": {
+   "id": "1",
+    "name": "John Doe",
+    "nickname": "john-john",
+    "location": "Europe",
+    "interests": [
+      {
+        "game": "League of Legends",
+        "level": "Intermediate"
+      },
+      {
+        "game": "Counter-Strike",
+        "level": "Advanced"
+      }
+    ]
+  },
+  "badRequestResponse": {
+    "message": "",
+    "httpStatus": "BAD_REQUEST",
+    "timestamp": "2021-03-01T12:00:00.000+00:00"
+  },
+  "notFoundResponse": {
+      "message": "",
+      "httpStatus": "NOT_FOUND",
+      "timestamp": "2021-03-01T12:00:00.000+00:00"
+  }
+}

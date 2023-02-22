@@ -2,11 +2,13 @@ package com.gamersdirectory.gamersapi.controller;
 
 import com.gamersdirectory.gamersapi.dto.AccountDTO;
 import com.gamersdirectory.gamersapi.dto.InterestDTO;
+import com.gamersdirectory.gamersapi.exception.ApiException;
 import com.gamersdirectory.gamersapi.validation.AccountForm;
 import com.gamersdirectory.gamersapi.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,20 +35,40 @@ public class AccountController {
 
     @PostMapping
     @Operation(summary = "Create new account", responses = {
-            @ApiResponse(
-                    responseCode = "201",
-                    description = "Account created successfully.",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AccountDTO.class))),
-            @ApiResponse(
-                    responseCode = "400",
-                    description = "Bad Request. Verify requested fields.",
-                    content = @Content)
-    })
-    public ResponseEntity<AccountDTO> signup(@RequestBody @Valid AccountForm accountForm, UriComponentsBuilder uriBuilder) {
+            @ApiResponse(responseCode = "201", ref = "accountCreatedSuccessfully"),
+            @ApiResponse(responseCode = "400", ref = "badRequestApi")})
+    public ResponseEntity<AccountDTO> signup(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "Account details.",
+                required = true,
+                content = @Content(
+                        mediaType = "application/json",
+                        schema = @Schema(implementation = AccountForm.class),
+                        examples = {
+                                @ExampleObject(
+                                        name = "Account details.",
+                                        value = """
+                                                {
+                                                    "name": "John Doe",
+                                                    "nickname": "john-john",
+                                                    "location": "Europe",
+                                                    "interests": [
+                                                      {
+                                                        "game": "League of Legends",
+                                                        "level": "INTERMEDIATE"
+                                                      },
+                                                      {
+                                                        "game": "Counter-Strike",
+                                                        "level": "GODLIKE`"
+                                                      }
+                                                    ]
+                                                }
+                                                """)
+                        }))
+            @RequestBody @Valid AccountForm accountForm,
+            UriComponentsBuilder uriBuilder) {
         AccountDTO accountDTO = accountService.save(accountForm);
-
         URI uri = uriBuilder.path("api/v1/account/{id}").buildAndExpand(accountDTO.getId()).toUri();
-
         return ResponseEntity.created(uri).body(accountDTO);
     }
 
@@ -59,7 +81,22 @@ public class AccountController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Not Found: Account Id was not found.",
-                    content = @Content)
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Bad Request. Verify requested fields.",
+                                            value = """
+                                                            {
+                                                              "message": "",
+                                                              "httpStatus": "BAD_REQUEST"
+                                                              "timestamp": "2021-07-19T19:00:00.000+00:00",
+                                                            }
+                                                            """
+                                    )
+                            },
+                            schema = @Schema(implementation = ApiException.class)
+                    ))
     })
     public ResponseEntity<AccountDTO> getById(@PathVariable Long id) {
         AccountDTO accountDTO = accountService.findById(id);
