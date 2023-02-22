@@ -1,9 +1,17 @@
-## ☕️ Playground for learning Java and Spring Boot
+## ☕️ Java Playground
 
-This is my playground for learning and practicing Java and Spring Boot.
+This is my playground for learning and practicing Java, Spring Boot, and other related technologies.
 
----
-## ✍︎ Description of the API
+## Table of contents
+- [Description](#description)
+- [ER Design and Diagram](#er)
+- [Logical Design and Diagram](#logical)
+- [Run locally](#run)
+- [Swagger](#swagger)
+- [H2](#h2)
+- [Tests](#test)
+
+## <a name="description"></a> ✍︎ Description of the API
 
 - users can sign up and create their own profile.
 - users can add interests to their profile.
@@ -12,8 +20,7 @@ This is my playground for learning and practicing Java and Spring Boot.
   - search for all games
   - search for top games
 
----
-## ⌖ ER model
+## <a name="er"></a> ⌖ ER model
 
 - `Account` has zero or many `Interest`.
   - name, nickname, email, password.
@@ -24,7 +31,7 @@ This is my playground for learning and practicing Java and Spring Boot.
 ![](src/main/resources/static/diagrams/er-diagram/er-diagram.svg)
 
 
-## ⎔ Logical model
+## <a name="logical"></a> ⎔ Logical model
 
 - An `Account` has many-to-many relationship with`Interest`, so an association table is created.
 - An `Interest` has one `Game` and one `Level`.
@@ -34,7 +41,7 @@ This is my playground for learning and practicing Java and Spring Boot.
 ![](src/main/resources/static/diagrams/logical/database.svg)
 
 
-## ⚙️ Running the API locally
+## <a name="run"></a> ⚙️ Running the API locally
 
 ```shell
 git clone https://github.com/asterixcode/spring-rest-gamers-api.git
@@ -50,23 +57,23 @@ mvn spring-boot:run
 ```
 
 ---
-The OpenAPI Swagger documentation can be access at:
+<a name="swagger"></a> The OpenAPI Swagger documentation can be access at:
 
 - http://localhost:8080/swagger-ui/index.html
 
 ---
-H2 in-memory database console can be accessed at:
+<a name="h2"></a> H2 in-memory database console can be accessed at:
 
 - http://localhost:8080/h2-console/
 
-H2 Login details
+H2 login details
 ```yaml
 JDBC URL: jdbc:h2:mem:gamers-db
 Username: sa
 Password: <empty>
 ```
 
-## ⚙️ Running the test
+## <a name="test"></a> ⚙️ Running the test
 
 ```shell
 mvn clean test
