@@ -16,18 +16,24 @@ This is my playground for learning and practicing Java, Spring Boot, and other r
 
 A directory of gamers that allows users to have an account, a list of favorite games with their level, share credits with other gamers and plenty of search functionality.
 
-
 ## <a name="requirements"></a> ⎋ Requirements
 
-> User domain
-  - [x] sign up and create an account.
-  - [ ] sign in and get account details.
-  - [ ] update account details.
-  - [ ] delete account.
-  - [ ] have a list of favorite games.
-  - [ ] add a game with a level to their favorite list of games.
-  - [ ] remove a game from their favorite list of games.
-  - [ ] give credit to other individual gamers.
+> User
+  - [x] signs up and creates an account.
+  - [ ] signs in and gets account details.
+  - [ ] updates account details.
+  - [ ] deletes account.
+  - [ ] creates and holds a list of favorite games.
+  - [ ] deletes a list of favorite games.
+  - [ ] adds a game with a level to their favorite list of games.
+  - [ ] removes a game from their favorite list of games.
+
+> Account
+ - [ ] has a name, nickname, email, password and address.
+ - [ ] has a list of favorite games.
+ - [ ] has credits.
+ - [ ] receives credit from other gamers.
+ - [ ] sends credit to other gamers.
 
 > Search functionality
   - [ ] search for all games.
