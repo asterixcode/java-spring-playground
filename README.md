@@ -4,6 +4,7 @@ This is my playground for learning and practicing Java, Spring Boot, and other r
 
 ## Table of contents
 - [Description](#description)
+- [List of Requirements](#requirements)
 - [ER Design and Diagram](#er)
 - [Logical Design and Diagram](#logical)
 - [Run locally](#run)
@@ -11,19 +12,38 @@ This is my playground for learning and practicing Java, Spring Boot, and other r
 - [H2](#h2)
 - [Tests](#test)
 
-## <a name="description"></a> ✍︎ Description of the API
+## <a name="description"></a> ✍︎ Description
 
-- users can sign up and create their own profile.
-- users can add interests to their profile.
-  - interests are composed of a game and a level for that specific game.
-- search functionalities
-  - search for all games
-  - search for top games
+A directory of gamers that allows users to create an account, search for other gamers, and add games to their favorite list of games.
+
+
+## <a name="requirements"></a> ⎋ Requirements
+
+- User domain
+  - [x] sign up and create an account.
+  - [] sign in and get account details.
+  - [] update account details.
+  - [] delete account.
+  - [] have a list of favorite games.
+  - [] add a game with a level to their favorite list of games.
+  - [] remove a game from their favorite list of games.
+  - [] give credit to other individual gamers.
+  
+- Search functionality
+  - [] search for all games.
+  - [] search for games by specifying the number of top games desired to see.
+  - [] search for games by level.
+  - [] search for games with maximum credits for each game based on their level.
+  - [] search for other gamers based on gamers address/geographic location.
+  - [] search for other gamers based on gamers favorite games.
+  - [] search for other gamers based on gamers game's level.
+  - [] search for other gamers based on gamers nickname.
+  - [] search for other gamers based on gamers name.
 
 ## <a name="er"></a> ⌖ ER model
 
-- `Account` has zero or many `Interest`.
-  - name, nickname, email, password.
+- An `Account` has zero-to-many `Interest` and the following attributes:
+  - name, nickname, email, password and address.
 - The same `Interest` can be associated with many `Account` and it has:
   - game, level of that game.
 
