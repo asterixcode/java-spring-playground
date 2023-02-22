@@ -14,7 +14,7 @@ This is my playground for learning and practicing Java, Spring Boot, and other r
 
 ## <a name="description"></a> ✍︎ Description
 
-A directory of gamers that allows users to create an account, search for other gamers, and add games to their favorite list of games.
+A directory of gamers that allows users to have an account, a list of favorite games with their level, share credits with other gamers and plenty of search functionality.
 
 
 ## <a name="requirements"></a> ⎋ Requirements
