@@ -19,26 +19,26 @@ A directory of gamers that allows users to have an account, a list of favorite g
 
 ## <a name="requirements"></a> ⎋ Requirements
 
-- User domain
+> User domain
   - [x] sign up and create an account.
-  - [] sign in and get account details.
-  - [] update account details.
-  - [] delete account.
-  - [] have a list of favorite games.
-  - [] add a game with a level to their favorite list of games.
-  - [] remove a game from their favorite list of games.
-  - [] give credit to other individual gamers.
-  
-- Search functionality
-  - [] search for all games.
-  - [] search for games by specifying the number of top games desired to see.
-  - [] search for games by level.
-  - [] search for games with maximum credits for each game based on their level.
-  - [] search for other gamers based on gamers address/geographic location.
-  - [] search for other gamers based on gamers favorite games.
-  - [] search for other gamers based on gamers game's level.
-  - [] search for other gamers based on gamers nickname.
-  - [] search for other gamers based on gamers name.
+  - [ ] sign in and get account details.
+  - [ ] update account details.
+  - [ ] delete account.
+  - [ ] have a list of favorite games.
+  - [ ] add a game with a level to their favorite list of games.
+  - [ ] remove a game from their favorite list of games.
+  - [ ] give credit to other individual gamers.
+
+> Search functionality
+  - [ ] search for all games.
+  - [ ] search for games by specifying the number of top games desired to see.
+  - [ ] search for games by level.
+  - [ ] search for games with maximum credits for each game based on their level.
+  - [ ] search for other gamers based on gamers address/geographic location.
+  - [ ] search for other gamers based on gamers favorite games.
+  - [ ] search for other gamers based on gamers game's level.
+  - [ ] search for other gamers based on gamers nickname.
+  - [ ] search for other gamers based on gamers name.
 
 ## <a name="er"></a> ⌖ ER model
 
