@@ -12,6 +12,8 @@
 *.zip
 *.tar.gz
 *.rar
+*.bak
+*.DS_Store
 
 ### Maven template
 target/

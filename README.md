@@ -1,56 +1,75 @@
-## GAMERS API
+## ☕️ Playground for learning Java and Spring Boot
+
+This is my playground for learning and practicing Java and Spring Boot.
+
+---
+## ✍︎ Description of the API
+
+- users can sign up and create their own profile.
+- users can add interests to their profile.
+  - interests are composed of a game and a level for that specific game.
+- search functionalities
+  - search for all games
+  - search for top games
+
+---
+## ⌖ ER model
+
+- `Account` has zero or many `Interest`.
+  - name, nickname, email, password.
+- The same `Interest` can be associated with many `Account` and it has:
+  - game, level of that game.
 
 
-## 📄 About
-
-A directory of gamers and their favorite games and respective level.
+![](src/main/resources/static/diagrams/er-diagram/er-diagram.svg)
 
 
-### Domain model design
+## ⎔ Logical model
 
-An Account has a list of Interests that are composed of a Game and a Level for that specific Game.
+- An `Account` has many-to-many relationship with`Interest`, so an association table is created.
+- An `Interest` has one `Game` and one `Level`.
+- A `Game` belongs to one-to-many `Interest`.
+- A `Level` belongs to one-to-many `Interest`.
 
-The Account has also a name, a nickname and a Location.
-
-The available locations, games and levels are pre-defined.
-
-If the payload for creating an Account has different values than those pre-defined, the sign up process will fail.
-
-#### Domain model mapped
-
-![](src/main/resources/static/images/gamers-api-domain-relationship.png)
+![](src/main/resources/static/diagrams/logical/database.svg)
 
 
 ## ⚙️ Running the API locally
 
-1. Clone the repo
-2. Make sure to import all maven dependencies
-3. Run the GamersApiApplication class
+```shell
+git clone https://github.com/asterixcode/spring-rest-gamers-api.git
+```
+```shell
+cd spring-rest-gamers-api
+```
+```shell
+mvn clean install
+```
+```shell
+mvn spring-boot:run
+```
 
-a) The OpenAPI Swagger documentation is configured and can be access at:
+---
+The OpenAPI Swagger documentation can be access at:
 
-http://localhost:8080/swagger-ui/index.html
+- http://localhost:8080/swagger-ui/index.html
 
-b) The app has an in-memory database configured using H2 database and its own UI.
+---
+H2 in-memory database console can be accessed at:
 
-- To access the H2 UI and visualize tables and data, go to http://localhost:8080/h2-console/
+- http://localhost:8080/h2-console/
 
-- Login with:
-1. JDBC URL: jdbc:h2:mem:gamers-db
-2. User Name: sa
-3. Password:
-4. Click Connect
+H2 Login details
+```yaml
+JDBC URL: jdbc:h2:mem:gamers-db
+Username: sa
+Password: <empty>
+```
 
 ## ⚙️ Running the test
 
-It is possible to run the test in two ways.
-
-1. Run the tests in the Terminal/Console with the command:
-
-```mvn clean test```
-
-2. a) Navigate to src/test/java
-   
-   b) Right click and select " Run 'All Tests' "
+```shell
+mvn clean test
+```
 
 
