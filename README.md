@@ -5,6 +5,7 @@ This is my playground for learning and practicing Java, Spring Boot, and other r
 ## Table of contents
 - [Description](#description)
 - [List of Requirements](#requirements)
+- [Domain Model](#dm)
 - [ER Design and Diagram](#er)
 - [Logical Design and Diagram](#logical)
 - [Run locally](#run)
@@ -46,12 +47,16 @@ A directory of gamers that allows users to have an account, a list of favorite g
   - [ ] search for other gamers based on gamers nickname.
   - [ ] search for other gamers based on gamers name.
 
+## <a name="dm"></a> ♾ Domain Model
+<br/>
+
+![](src/main/resources/static/diagrams/domain-model/domain-model.svg)
+
 ## <a name="er"></a> ⌖ ER model
 
-- An `Account` has zero-to-many `Interest` and the following attributes:
-  - name, nickname, email, password and address.
-- The same `Interest` can be associated with many `Account` and it has:
-  - game, level of that game.
+- An `Account` has many `interest` that must have one `Games` and one `Level`.
+- A given `Game` can be associated with only one `interest` of a given `Account`.
+- A given `Level` can be associated with many `interest` of a given `Account` or `Game`.
 
 
 ![](src/main/resources/static/diagrams/er-diagram/er-diagram.svg)
@@ -59,12 +64,12 @@ A directory of gamers that allows users to have an account, a list of favorite g
 
 ## <a name="logical"></a> ⎔ Logical model
 
-- An `Account` has many-to-many relationship with`Interest`, so an association table is created.
-- An `Interest` has one `Game` and one `Level`.
+- `Account` has many-to-many relationship with `Interest`, so an association table is created.
+- `Interest` must have one `Game` and one `Level`.
 - A `Game` belongs to one-to-many `Interest`.
 - A `Level` belongs to one-to-many `Interest`.
 
-![](src/main/resources/static/diagrams/logical/database.svg)
+![](src/main/resources/static/diagrams/logical/relational-database.svg)
 
 
 ## <a name="run"></a> ⚙️ Running the API locally
