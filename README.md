@@ -1,56 +1,113 @@
-## GAMERS API
+## ☕️ Java Playground
+
+This is my playground for learning and practicing Java, Spring Boot, and other related technologies.
+
+## Table of contents
+- [Description](#description)
+- [List of Requirements](#requirements)
+- [Domain Model](#dm)
+- [ER Design and Diagram](#er)
+- [Logical Design and Diagram](#logical)
+- [Run locally](#run)
+- [Swagger](#swagger)
+- [H2](#h2)
+- [Tests](#test)
+
+## <a name="description"></a> ✍︎ Description
+
+A directory of gamers that allows users to have an account, a list of favorite games with their level, share credits with other gamers and plenty of search functionality.
+
+## <a name="requirements"></a> ⎋ Requirements
+
+> User
+  - [x] signs up and creates an account.
+  - [ ] signs in and gets account details.
+  - [ ] updates account details.
+  - [ ] deletes account.
+  - [ ] creates and holds a list of favorite games.
+  - [ ] deletes a list of favorite games.
+  - [ ] adds a game with a level to their favorite list of games.
+  - [ ] removes a game from their favorite list of games.
+
+> Account
+ - [ ] has a name, nickname, email, password and address.
+ - [ ] has a list of favorite games.
+ - [ ] has credits.
+ - [ ] receives credit from other gamers.
+ - [ ] sends credit to other gamers.
+
+> Search functionality
+  - [ ] search for all games.
+  - [ ] search for games by specifying the number of top games desired to see.
+  - [ ] search for games by level.
+  - [ ] search for games with maximum credits for each game based on their level.
+  - [ ] search for other gamers based on gamers address/geographic location.
+  - [ ] search for other gamers based on gamers favorite games.
+  - [ ] search for other gamers based on gamers game's level.
+  - [ ] search for other gamers based on gamers nickname.
+  - [ ] search for other gamers based on gamers name.
+
+## <a name="dm"></a> ♾ Domain Model
+<br/>
+
+![](src/main/resources/static/diagrams/domain-model/domain-model.svg)
+
+## <a name="er"></a> ⌖ ER model
+
+- An `Account` has many `interest` that must have one `Games` and one `Level`.
+- A given `Game` can be associated with only one `interest` of a given `Account`.
+- A given `Level` can be associated with many `interest` of a given `Account` or `Game`.
 
 
-## 📄 About
-
-A directory of gamers and their favorite games and respective level.
+![](src/main/resources/static/diagrams/er-diagram/er-diagram.svg)
 
 
-### Domain model design
+## <a name="logical"></a> ⎔ Logical model
 
-An Account has a list of Interests that are composed of a Game and a Level for that specific Game.
+- `Account` has many-to-many relationship with `Interest`, so an association table is created.
+- `Interest` must have one `Game` and one `Level`.
+- A `Game` belongs to one-to-many `Interest`.
+- A `Level` belongs to one-to-many `Interest`.
 
-The Account has also a name, a nickname and a Location.
-
-The available locations, games and levels are pre-defined.
-
-If the payload for creating an Account has different values than those pre-defined, the sign up process will fail.
-
-#### Domain model mapped
-
-![](src/main/resources/static/images/gamers-api-domain-relationship.png)
+![](src/main/resources/static/diagrams/logical/relational-database.svg)
 
 
-## ⚙️ Running the API locally
+## <a name="run"></a> ⚙️ Running the API locally
 
-1. Clone the repo
-2. Make sure to import all maven dependencies
-3. Run the GamersApiApplication class
+```shell
+git clone https://github.com/asterixcode/spring-rest-gamers-api.git
+```
+```shell
+cd spring-rest-gamers-api
+```
+```shell
+mvn clean install
+```
+```shell
+mvn spring-boot:run
+```
 
-a) The OpenAPI Swagger documentation is configured and can be access at:
+---
+<a name="swagger"></a> The OpenAPI Swagger documentation can be access at:
 
-http://localhost:8080/swagger-ui/index.html
+- http://localhost:8080/swagger-ui/index.html
 
-b) The app has an in-memory database configured using H2 database and its own UI.
+---
+<a name="h2"></a> H2 in-memory database console can be accessed at:
 
-- To access the H2 UI and visualize tables and data, go to http://localhost:8080/h2-console/
+- http://localhost:8080/h2-console/
 
-- Login with:
-1. JDBC URL: jdbc:h2:mem:gamers-db
-2. User Name: sa
-3. Password:
-4. Click Connect
+H2 login details
+```yaml
+JDBC URL: jdbc:h2:mem:gamers-db
+Username: sa
+Password: <empty>
+```
 
-## ⚙️ Running the test
+## <a name="test"></a> ⚙️ Running the test
 
-It is possible to run the test in two ways.
-
-1. Run the tests in the Terminal/Console with the command:
-
-```mvn clean test```
-
-2. a) Navigate to src/test/java
-   
-   b) Right click and select " Run 'All Tests' "
+```shell
+mvn clean test
+```
 
 
