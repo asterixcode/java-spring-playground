@@ -15,70 +15,83 @@ This is my playground for learning and practicing Java, Spring Boot, and other r
 
 ## <a name="description"></a> ✍︎ Description
 
-A directory of gamers that allows users to have an account, a list of favorite games with their level, share credits with other gamers and plenty of search functionality.
+A directory of players, their geographic location, which games they play and their level at the game.
 
 ## <a name="requirements"></a> ⎋ Requirements
 
-> User
-  - [x] signs up and creates an account.
-  - [ ] signs in and gets account details.
-  - [ ] updates account details.
-  - [ ] deletes account.
-  - [ ] creates and holds a list of favorite games.
-  - [ ] deletes a list of favorite games.
-  - [ ] adds a game with a level to their favorite list of games.
-  - [ ] removes a game from their favorite list of games.
+<details>
+  <summary><b>Player</b></summary>
 
-> Account
- - [ ] has a name, nickname, email, password and address.
- - [ ] has a list of favorite games.
- - [ ] has credits.
- - [ ] receives credit from other gamers.
- - [ ] sends credit to other gamers.
+- [x] can sign up by creating an account with name, nickname, email, password and address.
+- [ ] can sign in with account details.
+- [ ] can update account details: name, nickname, email, password and address.
+- [ ] can delete account.
+- [ ] can link a game with a level to its account.
+- [ ] can unlink a game with a level from its account.
+</details>
 
-> Search functionality
-  - [ ] search for all games.
-  - [ ] search for games by specifying the number of top games desired to see.
-  - [ ] search for games by level.
-  - [ ] search for games with maximum credits for each game based on their level.
-  - [ ] search for other gamers based on gamers address/geographic location.
-  - [ ] search for other gamers based on gamers favorite games.
-  - [ ] search for other gamers based on gamers game's level.
-  - [ ] search for other gamers based on gamers nickname.
-  - [ ] search for other gamers based on gamers name.
+<details>
+  <summary><b>Search</b></summary>
+
+- [ ] search for all games.
+- [ ] search for games by level.
+- [ ] search for other players based on game.
+- [ ] search for other players based on game's level.
+- [ ] search for other players based on nickname.
+- [ ] search for other players based on name.
+- [ ] search for other players based on address/geographic location.
+- [ ] search for other players based on email.
+</details>
 
 ## <a name="dm"></a> ♾ Domain Model
-<br/>
 
-![](src/main/resources/static/diagrams/domain-model/domain-model.svg)
+Domain model designed based on the requirements.
+
+![](src/main/resources/assets/diagrams/domain-model/domain-model.jpg)
 
 ## <a name="er"></a> ⌖ ER model
 
-- An `Account` has many `interest` that must have one `Games` and one `Level`.
-- A given `Game` can be associated with only one `interest` of a given `Account`.
-- A given `Level` can be associated with many `interest` of a given `Account` or `Game`.
+Entity relationship diagram designed based on the domain model and requirements.
 
+Please note that the following rules are applied:
 
-![](src/main/resources/static/diagrams/er-diagram/er-diagram.svg)
+In general:
+
+- An `Account` has many games `Game`.
+- A `Game` can be associated to many `Account`.
+- A `Game` has one `Level`.
+- A `Level` can be associated with many `Game`.
+
+Specifically:
+
+- A given `Account` can be linked to many `Game`.
+- A given `Game` can be linked only once to a given `Account`.
+- A given `Level` belongs to many `Game`.
+- A given `Game` linked to one `Account` has only one `Level`.
+
+![](src/main/resources/assets/diagrams/er-diagram/er-diagram.jpg)
 
 
 ## <a name="logical"></a> ⎔ Logical model
 
-- `Account` has many-to-many relationship with `Interest`, so an association table is created.
-- `Interest` must have one `Game` and one `Level`.
-- A `Game` belongs to one-to-many `Interest`.
-- A `Level` belongs to one-to-many `Interest`.
+- `Account` has PK `id`, unique `email`, unique `nickname`.
+- `Game` has a PK `id`, unique `name`.
+- `Level` has a PK `id`, unique `name`.
+- An `Account` can be linked to many `Game`, and a `Game` can be linked to many `Account`, so an association table `LinkedGame` is created.
+    - `LinkedGame` has PPKs and FKs `account_id` and `game_id`.
+    - `LinkedGame` has a unique constraint on `account_id` and `game_id`.
+    - `LinkedGame` has a FK `level_id`.
 
-![](src/main/resources/static/diagrams/logical/relational-database.svg)
+![](src/main/resources/assets/diagrams/logical/relational-database.jpg)
 
 
 ## <a name="run"></a> ⚙️ Running the API locally
 
 ```shell
-git clone https://github.com/asterixcode/spring-rest-gamers-api.git
+git clone https://github.com/asterixcode/java-spring-playground.git
 ```
 ```shell
-cd spring-rest-gamers-api
+cd gamers-api
 ```
 ```shell
 mvn clean install
