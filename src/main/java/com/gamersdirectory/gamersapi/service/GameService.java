@@ -1,6 +1,7 @@
 package com.gamersdirectory.gamersapi.service;
 
-import com.gamersdirectory.gamersapi.entity.Game;
+import com.gamersdirectory.gamersapi.domain.Game;
+
 import java.util.List;
 
 public interface GameService {

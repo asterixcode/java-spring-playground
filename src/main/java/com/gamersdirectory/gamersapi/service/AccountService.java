@@ -1,14 +1,10 @@
 package com.gamersdirectory.gamersapi.service;
 
 import com.gamersdirectory.gamersapi.dto.AccountDTO;
-import com.gamersdirectory.gamersapi.dto.InterestDTO;
-import com.gamersdirectory.gamersapi.validation.AccountForm;
-
-import java.util.List;
+import com.gamersdirectory.gamersapi.dto.AccountInputDTO;
 
 public interface AccountService {
-    AccountDTO save(AccountForm accountForm);
+    AccountDTO save(AccountInputDTO accountInputDTO);
     AccountDTO findById(Long accountId);
 
-    List<InterestDTO> findInterestsByAccountId(Long id);
 }

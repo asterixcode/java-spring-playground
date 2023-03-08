@@ -1,95 +1,62 @@
 package com.gamersdirectory.gamersapi.service;
 
-import com.gamersdirectory.gamersapi.utils.ErrorMessageEnum;
+import com.gamersdirectory.gamersapi.domain.Account;
+import com.gamersdirectory.gamersapi.domain.Game;
+import com.gamersdirectory.gamersapi.domain.Location;
 import com.gamersdirectory.gamersapi.dto.AccountDTO;
-import com.gamersdirectory.gamersapi.dto.InterestDTO;
-import com.gamersdirectory.gamersapi.entity.*;
+import com.gamersdirectory.gamersapi.dto.AccountInputDTO;
 import com.gamersdirectory.gamersapi.exception.ApiNotFoundException;
 import com.gamersdirectory.gamersapi.repository.AccountRepository;
 import com.gamersdirectory.gamersapi.repository.GameRepository;
-import com.gamersdirectory.gamersapi.repository.LevelRepository;
 import com.gamersdirectory.gamersapi.repository.LocationRepository;
-import com.gamersdirectory.gamersapi.validation.AccountForm;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.gamersdirectory.gamersapi.utils.CustomModelMapper;
+import com.gamersdirectory.gamersapi.utils.ErrorMessageEnum;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
+
+@AllArgsConstructor
 @Service
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final LocationRepository locationRepository;
     private final GameRepository gameRepository;
-    private final LevelRepository levelRepository;
-
-    @Autowired
-    public AccountServiceImpl(AccountRepository accountRepository, LocationRepository locationRepository, GameRepository gameRepository, LevelRepository levelRepository) {
-        this.accountRepository = accountRepository;
-        this.locationRepository = locationRepository;
-        this.gameRepository = gameRepository;
-        this.levelRepository = levelRepository;
-    }
+    private CustomModelMapper modelMapper;
 
     @Override
-    public AccountDTO save(AccountForm accountForm) {
-        Location findLocation = findLocationOrFail(accountForm.getLocation());
+    public AccountDTO save(AccountInputDTO accountInputDTO) {
+        Location findLocation = validateLocation(accountInputDTO.getLocation());
 
         Account account = new Account();
 
-        account.setName(accountForm.getName());
-        account.setNickname(accountForm.getNickname());
+        account.setName(accountInputDTO.getName());
+        account.setNickname(accountInputDTO.getNickname());
+        account.setEmail(accountInputDTO.getEmail());
         account.setLocation(findLocation);
 
-        if (accountForm.getInterests() != null) {
-            Map<Game, Level> gamesAndLevel = mapGamesAndLevelsOrFail(accountForm);
-            List<Interest> interestList = fromMapToList(gamesAndLevel);
-            account.setInterests(interestList);
+        if (Objects.nonNull(accountInputDTO.getGames())) {
+            List<Game> games = new ArrayList<>();
+            accountInputDTO.getGames().forEach(gameDTO -> {
+                Game game = gameRepository.findByName(gameDTO.getName())
+                        .orElseThrow(() -> new ApiNotFoundException(
+                                String.format(ErrorMessageEnum.GAME_NOT_FOUND.getMessage(), gameDTO.getName())));
+                games.add(game);
+            });
+            account.setGames(games);
         }
 
-        return new AccountDTO(accountRepository.save(account));
+        return modelMapper.map(accountRepository.save(account), AccountDTO.class);
     }
 
-    private Location findLocationOrFail(String locationName) {
-        return locationRepository.findLocationByName(locationName)
+    private Location validateLocation(String continent) {
+        return locationRepository.findLocationByContinent(continent)
                 .orElseThrow(() -> new ApiNotFoundException(
-                        String.format(ErrorMessageEnum.LOCATION_NOT_FOUND.getMessage(), locationName)));
-    }
-
-    private Map<Game, Level> mapGamesAndLevelsOrFail(AccountForm accountForm) {
-        List<InterestDTO> interests = accountForm.getInterests()
-                .stream()
-                .toList();
-
-        Map<Game, Level> map = new HashMap<>();
-
-        for (InterestDTO dto : interests) {
-            Game findGame = gameRepository.findByName(dto.getGame())
-                    .orElseThrow(() -> new ApiNotFoundException(
-                            String.format(ErrorMessageEnum.GAME_NOT_FOUND.getMessage(), dto.getGame())
-                    ));
-
-            Level findLevel = levelRepository.findByName(dto.getLevel())
-                    .orElseThrow(() -> new ApiNotFoundException(
-                            String.format(ErrorMessageEnum.LEVEL_NOT_FOUND.getMessage(), dto.getLevel())
-                    ));
-
-            map.put(findGame, findLevel);
-        }
-        return map;
-    }
-
-    private List<Interest> fromMapToList(Map<Game, Level> map) {
-        List<Interest> interestList = new ArrayList<>();
-
-        for (Map.Entry<Game, Level> maps : map.entrySet()) {
-            Interest interest = new Interest();
-            interest.setGame(maps.getKey());
-            interest.setLevel(maps.getValue());
-            interestList.add(interest);
-        }
-
-        return interestList;
+                        String.format(ErrorMessageEnum.LOCATION_NOT_FOUND.getMessage(), continent)));
     }
 
     @Override
@@ -98,13 +65,6 @@ public class AccountServiceImpl implements AccountService {
                 .orElseThrow(() -> new ApiNotFoundException(
                         String.format(ErrorMessageEnum.ACCOUNT_ID_NOT_FOUND.getMessage(), accountId)
                 ));
-        return new AccountDTO(account);
-    }
-
-    @Override
-    public List<InterestDTO> findInterestsByAccountId(Long accountId) {
-        AccountDTO account = findById(accountId);
-
-        return account.getInterests();
+        return modelMapper.map(account, AccountDTO.class);
     }
 }
