@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LocationDTO {
+public class GameDTO {
 
     private Long id;
-    private String continent;
-
+    private String name;
+    private String level;
 }
