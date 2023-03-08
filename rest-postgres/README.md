@@ -1,21 +1,19 @@
-## ☕️ Java Playground
-
-This is my playground for learning and practicing Java, Spring Boot, and other related technologies.
-
 ## Table of contents
 - [Description](#description)
 - [List of Requirements](#requirements)
 - [Domain Model](#dm)
-- [ER Design and Diagram](#er)
-- [Logical Design and Diagram](#logical)
-- [Run locally](#run)
+- [ER Model](#er)
+- [Logical Model](#logical)
+- [How to Build and Run Locally](#run)
 - [Swagger](#swagger)
 - [H2](#h2)
-- [Tests](#test)
+- [How to Run Tests](#test)
 
 ## <a name="description"></a> ✍︎ Description
 
-A directory of players, their geographic location, which games they play and their level at the game.
+A REST service providing a directory of players, their geographic location, which games they play and their level at the game.
+
+A relational database to persist data.
 
 ## <a name="requirements"></a> ⎋ Requirements
 
@@ -49,7 +47,7 @@ Domain model designed based on the requirements.
 
 ![](src/main/resources/assets/diagrams/domain-model/domain-model.jpg)
 
-## <a name="er"></a> ⌖ ER model
+## <a name="er"></a> ⌖ ER Model
 
 Entity relationship diagram designed based on the domain model and requirements.
 
@@ -72,7 +70,7 @@ Specifically:
 ![](src/main/resources/assets/diagrams/er-diagram/er-diagram.jpg)
 
 
-## <a name="logical"></a> ⎔ Logical model
+## <a name="logical"></a> ⎔ Logical Model
 
 - `Account` has PK `id`, unique `email`, unique `nickname`.
 - `Game` has a PK `id`, unique `name`.
@@ -85,13 +83,15 @@ Specifically:
 ![](src/main/resources/assets/diagrams/logical/relational-database.jpg)
 
 
-## <a name="run"></a> ⚙️ Running the API locally
+## <a name="run"></a> ⚙️ Build and Run Locally
+
+To run locally, make sure first that you have postgres server running in your local machine.
 
 ```shell
 git clone https://github.com/asterixcode/java-spring-playground.git
 ```
 ```shell
-cd gamers-api
+cd rest-postgres
 ```
 ```shell
 mvn clean install
@@ -106,7 +106,9 @@ mvn spring-boot:run
 - http://localhost:8080/swagger-ui/index.html
 
 ---
-<a name="h2"></a> H2 in-memory database console can be accessed at:
+<a name="h2"></a> `@Deprecated` 
+
+H2 in-memory database console can be accessed at:
 
 - http://localhost:8080/h2-console/
 
@@ -117,7 +119,7 @@ Username: sa
 Password: <empty>
 ```
 
-## <a name="test"></a> ⚙️ Running the test
+## <a name="test"></a> ⚙️ How to Run Tests
 
 ```shell
 mvn clean test
