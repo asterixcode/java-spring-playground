@@ -2,29 +2,25 @@ package com.gamersdirectory.gamersapi.controller;
 
 import com.gamersdirectory.gamersapi.data.request.GameRequest;
 import com.gamersdirectory.gamersapi.data.response.WebResponse;
-import com.gamersdirectory.gamersapi.entity.Game;
+import com.gamersdirectory.gamersapi.domain.Game;
 import com.gamersdirectory.gamersapi.service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/game")
 @Tag(name="Game")
 public class GameController {
 
     private final GameService gameService;
-
-    @Autowired
-    public GameController(GameService gameService) {
-        this.gameService = gameService;
-    }
 
     @GetMapping("/all")
     public List<Game> getAllGames() {
