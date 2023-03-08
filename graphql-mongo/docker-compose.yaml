@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    hostname: mongo
+    ports:
+      - "27019:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+    volumes:
+      - ./data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    hostname: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=rootuser
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=rootpass
+    depends_on:
+      - mongo
+
+  graphql-mongo:
+    image: maven:3.8.4-openjdk-17-slim
+    container_name: api
+    depends_on:
+      - mongo
+    ports:
+      - "9090:9090"
+    volumes:
+      - .:/app/src:rw
+      - ~/.m2:/root/.m2
+    working_dir: /app/src
+    environment:
+      - SPRING_PROFILES_ACTIVE=compose
+    command:
+      - /bin/bash
+      - -c
+      - |
+        mvn clean install -DskipTests -e -C spring-boot:run
+
+networks:
+  default:
+    name: graphql-api
+    driver: bridge

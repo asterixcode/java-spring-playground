@@ -26,6 +26,29 @@ spring:
       data-locations: classpath:database/data.sql
       # schema-locations: classpath:database/schema.sql
 
+server:
+  port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
+    include-stacktrace: always
+    whitelabel:
+      enabled: true
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+
+logging:
+  level:
+    root: INFO
+
 
 #management:
 #  endpoints:
@@ -41,22 +64,3 @@ spring:
 #      enabled: true
 #    prometheus:
 #      enabled: true
-server:
-  port: 8888
-  error:
-    include-message: always
-    include-binding-errors: always
-    include-exception: true
-    include-stacktrace: always
-    whitelabel:
-      enabled: true
-
-springdoc:
-  api-docs:
-    enabled: true
-    path: /api-docs
-
-
-logging:
-  level:
-    root: INFO
