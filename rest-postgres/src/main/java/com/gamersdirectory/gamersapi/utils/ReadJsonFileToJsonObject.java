@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 public class ReadJsonFileToJsonObject {
 
     public JSONObject read() throws IOException {
-        String file = "src/main/resources/openapi/response.json";
+        String file = "rest-postgres/src/main/resources/openapi/response.json";
         String content = new String(Files.readAllBytes(Paths.get(file)));
         return new JSONObject(content);
     }

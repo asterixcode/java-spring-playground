@@ -29,6 +29,8 @@ public class Account {
 
     private String email;
 
+    private String password;
+
     @ManyToOne
     private Location location;
 

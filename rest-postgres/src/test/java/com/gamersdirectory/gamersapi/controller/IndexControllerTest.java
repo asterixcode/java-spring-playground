@@ -53,6 +53,6 @@ class IndexControllerTest {
                 .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.content().string("GAMERS API")).andReturn();
 
-        // TODO: add assertions
+        // add assertions
     }
 }

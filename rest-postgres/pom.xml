@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.gamesdirectory</groupId>
-    <artifactId>gamers-api</artifactId>
+    <artifactId>rest-postgres</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>gamers-api</name>
     <description>gamers-api</description>
