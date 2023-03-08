@@ -23,10 +23,9 @@ insert into game (name) values ('GTA');
 insert into game (name) values ('Apex Legends');
 insert into game (name) values ('League of Legends');
 
-insert into location (name) values ('Asia');
-insert into location (name) values ('Europe');
-insert into location (name) values ('South America');
-insert into location (name) values ('North America');
-insert into location (name) values ('Oceania');
-insert into location (name) values ('Africa');
-
+insert into location (continent) values ('Asia');
+insert into location (continent) values ('Europe');
+insert into location (continent) values ('South America');
+insert into location (continent) values ('North America');
+insert into location (continent) values ('Oceania');
+insert into location (continent) values ('Africa');
