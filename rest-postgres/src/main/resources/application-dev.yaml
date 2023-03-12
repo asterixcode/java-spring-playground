@@ -11,6 +11,10 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
   sql:
     init:
       mode: always
