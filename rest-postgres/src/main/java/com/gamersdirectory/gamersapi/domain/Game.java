@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,9 +21,6 @@ public class Game {
 
     private String name;
 
-    @ManyToOne
-    private Level level;
-
-    @ManyToMany(mappedBy = "games")
-    private List<Account> accounts = new ArrayList<>();
+    @OneToMany(mappedBy = "game")
+    private List<AccountGame> accountGames;
 }

@@ -29,7 +29,7 @@ public class GameController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved game",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GameDTO.class))}),
-            @ApiResponse(responseCode = "404", description = "Game not found" ,content = @Content),
+            @ApiResponse(responseCode = "404", description = "Game not found", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
     })
     @GetMapping("/{id}")

@@ -5,12 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @Setter
@@ -34,12 +30,8 @@ public class Account {
     @ManyToOne
     private Location location;
 
-    @ManyToMany
-    @Cascade(CascadeType.ALL)
-    @JoinTable(name = "linked_games",
-            joinColumns = {@JoinColumn(name = "account_id")},
-            inverseJoinColumns = {@JoinColumn(name = "game_id")})
-    private List<Game> games = new ArrayList<>();
+    @OneToMany(mappedBy = "account")
+    private List<AccountGame> accountGames = new ArrayList<>();
 
     @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
