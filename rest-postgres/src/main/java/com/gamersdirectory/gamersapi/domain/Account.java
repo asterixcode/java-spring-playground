@@ -13,21 +13,32 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "account",
+        uniqueConstraints = {
+        @UniqueConstraint(name = "account_email_unique ", columnNames = "email")
+        })
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "nickname", nullable = false)
     private String nickname;
 
+    @Column(name = "email", nullable = false)
     private String email;
 
+
+    @Column(name = "password", nullable = false)
     private String password;
 
     @ManyToOne
+    @JoinColumn(name = "location_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "account_location_id_fk"))
     private Location location;
 
     @OneToMany(mappedBy = "account")
