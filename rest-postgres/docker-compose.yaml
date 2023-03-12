@@ -1,33 +1,42 @@
 version: '3.8'
 
 services:
-  postgres:
-    container_name: postgres
+  db:
     image: postgres:15
-    hostname: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: players
+      POSTGRES_DB: playersdatabase
     ports:
       - "5432:5432"
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - ./db-data:/var/lib/postgresql/data
+    networks:
+      - players-network
 
   app:
-    build: .
-    container_name: rest-app
-    image: rest-app
+    image: maven:3.8.1-openjdk-17
+    container_name: players-app
     ports:
       - "8090:8090"
+    volumes:
+      - .:/app
+      - ~/.m2:/root/.m2
+    working_dir: /app
+    command: |
+        bash -c "
+            mvn clean package -DskipTests &&
+            java -jar target/*.jar
+        "
     depends_on:
-      - postgres
+      - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/players
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/playersdatabase
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: password
+      SPRING_PROFILES_ACTIVE: prod
+    networks:
+      - players-network
 
 networks:
-  default:
-    name: players-network
-    driver: bridge
+  players-network:

@@ -41,9 +41,9 @@ public class OpenApiSpringdoc {
                         .addMediaType(APPLICATION_JSON_VALUE,
                                 new io.swagger.v3.oas.models.media.MediaType()
                                         .addExamples(ACCOUNT_INPUT_EXAMPLE_1,
-                                                new Example().value(readJsonFileToJsonObject.read().get("accountInputDTO").toString()))
+                                                new Example().value(readJsonFileToJsonObject.read().getJSONObject("accountInputDTO").toString()))
                                         .addExamples(DEFAULT_KEY,
-                                                new Example().value(readJsonFileToJsonObject.read().get("accountInputDefaultFields").toString()))
+                                                new Example().value(readJsonFileToJsonObject.read().getJSONObject("accountInputDefaultFields").toString()))
                                         .schema(new Schema<AccountInputDTO>().example(AccountInputDTO.class)))
                 );
 
@@ -53,7 +53,7 @@ public class OpenApiSpringdoc {
                         .addMediaType(APPLICATION_JSON_VALUE,
                         new io.swagger.v3.oas.models.media.MediaType()
                                 .addExamples(DEFAULT_KEY,
-                                        new Example().value(readJsonFileToJsonObject.read().get("accountCreatedSuccessfullyResponse").toString()))
+                                        new Example().value(readJsonFileToJsonObject.read().getJSONObject("accountCreatedSuccessfullyResponse").toString()))
                                 .schema(new Schema<AccountDTO>().example(AccountDTO.class)))
                 );
 
@@ -63,7 +63,7 @@ public class OpenApiSpringdoc {
                         .addMediaType(APPLICATION_JSON_VALUE,
                         new io.swagger.v3.oas.models.media.MediaType()
                                 .addExamples(DEFAULT_KEY,
-                                        new Example().value(readJsonFileToJsonObject.read().get("badRequestResponse").toString()))
+                                        new Example().value(readJsonFileToJsonObject.read().getJSONObject("badRequestResponse").toString()))
                         ));
 
 
@@ -71,7 +71,7 @@ public class OpenApiSpringdoc {
                 .content(new Content().addMediaType(APPLICATION_JSON_VALUE,
                         new io.swagger.v3.oas.models.media.MediaType()
                                 .addExamples(DEFAULT_KEY,
-                                        new Example().value(readJsonFileToJsonObject.read().get("notFoundResponse").toString()))
+                                        new Example().value(readJsonFileToJsonObject.read().getJSONObject("notFoundResponse").toString()))
                 ));
 
         ApiResponse accountFound = new ApiResponse()
@@ -80,7 +80,7 @@ public class OpenApiSpringdoc {
                         .addMediaType(APPLICATION_JSON_VALUE,
                                 new io.swagger.v3.oas.models.media.MediaType()
                                         .addExamples(DEFAULT_KEY,
-                                                new Example().value(readJsonFileToJsonObject.read().get("accountFoundResponse").toString()))
+                                                new Example().value(readJsonFileToJsonObject.read().getJSONObject("accountFoundResponse").toString()))
                                         .schema(new Schema<AccountDTO>().example(AccountDTO.class)))
                 );
 
