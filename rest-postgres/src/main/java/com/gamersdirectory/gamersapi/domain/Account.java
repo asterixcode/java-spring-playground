@@ -15,7 +15,8 @@ import java.util.*;
 @Entity
 @Table(name = "account",
         uniqueConstraints = {
-        @UniqueConstraint(name = "account_email_unique ", columnNames = "email")
+        @UniqueConstraint(name = "account_email_unique ", columnNames = "email"),
+        @UniqueConstraint(name = "account_nickname_unique ", columnNames = "nickname")
         })
 public class Account {
 
@@ -32,7 +33,6 @@ public class Account {
 
     @Column(name = "email", nullable = false)
     private String email;
-
 
     @Column(name = "password", nullable = false)
     private String password;
