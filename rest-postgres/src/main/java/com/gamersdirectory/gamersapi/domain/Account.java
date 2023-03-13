@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Getter
@@ -38,16 +39,50 @@ public class Account {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "location_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "account_location_id_fk"))
+    @JoinColumn(
+            name = "location_id",
+            nullable = false,
+            referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "account_location_id_fk"))
     private Location location;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(
+            mappedBy = "account",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true)
     private List<AccountGame> accountGames = new ArrayList<>();
 
-    @Column(updatable = false)
+    @Column(name = "created_at",
+            updatable = false,
+            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate = new Date();
+    private LocalDateTime createdAt;
 
+    @Column(name = "updated_at",
+            columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedDate = new Date();
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+    public void addAccountGame(AccountGame accountGame) {
+        if (!accountGames.contains(accountGame)) {
+            accountGames.add(accountGame);
+            accountGame.setAccount(this);
+        }
+    }
+
+    public void removeAccountGame(AccountGame accountGame) {
+        accountGames.remove(accountGame);
+        accountGame.setAccount(null);
+    }
 }
