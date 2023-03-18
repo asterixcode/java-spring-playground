@@ -1,17 +1,47 @@
 {
- "accountCreatedSuccessfullyResponse": {
-   "id": "1",
+  "accountInputDTO": {
     "name": "John Doe",
     "nickname": "john-john",
+    "email": "john@mail.com",
+    "password": "12345678",
     "location": "Europe",
-    "interests": [
+    "games": []
+  },
+  "accountInputDefaultFields": {
+    "name": "string",
+    "nickname": "string",
+    "email": "string",
+    "password": "string",
+    "location": "string",
+    "games": []
+  },
+  "accountCreatedSuccessfullyResponse": {
+    "name": "string",
+    "nickname": "string",
+    "email": "string",
+    "location": {
+      "id": 1,
+      "continent": "string"
+    },
+    "games": []
+  },
+  "accountFoundResponse": {
+    "id": 2,
+    "name": "John Doe",
+    "nickname": "john-john",
+    "email": "john@mail.com",
+    "location": {
+      "id": 2,
+      "continent": "Europe"
+    },
+    "games": [
       {
-        "game": "League of Legends",
-        "level": "Intermediate"
+        "name": "GTA",
+        "level": "NOOB"
       },
       {
-        "game": "Counter-Strike",
-        "level": "Advanced"
+        "name": "FIFA",
+        "level": "PRO"
       }
     ]
   },
@@ -21,8 +51,8 @@
     "timestamp": "2021-03-01T12:00:00.000+00:00"
   },
   "notFoundResponse": {
-      "message": "",
-      "httpStatus": "NOT_FOUND",
-      "timestamp": "2021-03-01T12:00:00.000+00:00"
+    "message": "Account Id Not Found, Id: ?",
+    "httpStatus": "NOT_FOUND",
+    "timestamp": "2021-03-01T12:00:00.000+00:00"
   }
 }

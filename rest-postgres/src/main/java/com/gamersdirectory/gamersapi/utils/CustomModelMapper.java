@@ -1,13 +1,12 @@
 package com.gamersdirectory.gamersapi.utils;
 
-import com.gamersdirectory.gamersapi.domain.Game;
-import com.gamersdirectory.gamersapi.domain.Level;
-import com.gamersdirectory.gamersapi.dto.GameDTO;
-import org.modelmapper.Converter;
+import com.gamersdirectory.gamersapi.domain.Account;
+import com.gamersdirectory.gamersapi.domain.AccountGame;
+import com.gamersdirectory.gamersapi.dto.AccountDTO;
+import com.gamersdirectory.gamersapi.dto.AccountGameDTO;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class CustomModelMapper extends ModelMapper {
@@ -16,18 +15,16 @@ public class CustomModelMapper extends ModelMapper {
         super();
 
         getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.STRICT)
-                .setSkipNullEnabled(true);
+                .setSkipNullEnabled(true)
+                .setAmbiguityIgnored(true);
 
-        addTypeMapForGameToGameDTO();
+        this.createTypeMap(Account.class, AccountDTO.class)
+                .addMapping(Account::getLocation, AccountDTO::setLocation)
+                .addMapping(Account::getAccountGames, AccountDTO::setGames);
 
+        this.createTypeMap(AccountGame.class, AccountGameDTO.class)
+                .addMappings(mapper -> mapper.map(src -> src.getGame().getName(), AccountGameDTO::setName))
+                .addMappings(mapper -> mapper.map(src -> src.getLevel().getName(), AccountGameDTO::setLevel));
     }
-
-    private void addTypeMapForGameToGameDTO() {
-        TypeMap<Game, GameDTO> gameToGameDTOTypeMap = createTypeMap(Game.class, GameDTO.class);
-        Converter<Level, String> levelToStringConverter = context -> context.getSource().getName();
-        gameToGameDTOTypeMap.addMappings(mapper -> mapper.using(levelToStringConverter).map(Game::getLevel, GameDTO::setLevel));
-    }
-
 
 }

@@ -1,12 +1,11 @@
 package com.gamersdirectory.gamersapi.service;
 
-import com.gamersdirectory.gamersapi.domain.Game;
+import com.gamersdirectory.gamersapi.dto.GameDTO;
 
 import java.util.List;
 
 public interface GameService {
 
-    List<Game> listAll();
-
-    List<Game> listTop5Games();
+    GameDTO getGame(Long id);
+    List<GameDTO> listAll();
 }

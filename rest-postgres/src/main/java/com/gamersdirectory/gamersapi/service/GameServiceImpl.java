@@ -1,6 +1,7 @@
 package com.gamersdirectory.gamersapi.service;
 
 import com.gamersdirectory.gamersapi.domain.Game;
+import com.gamersdirectory.gamersapi.dto.GameDTO;
 import com.gamersdirectory.gamersapi.exception.ApiNotFoundException;
 import com.gamersdirectory.gamersapi.repository.GameRepository;
 import lombok.AllArgsConstructor;
@@ -15,13 +16,18 @@ public class GameServiceImpl implements GameService {
     private final GameRepository gameRepository;
 
     @Override
-    public List<Game> listAll() {
-        return gameRepository.findAll();
+    public GameDTO getGame(Long id) {
+        Game game = gameRepository.findById(id)
+                .orElseThrow(() -> new ApiNotFoundException("Game not found."));
+
+        return new GameDTO(game);
     }
 
     @Override
-    public List<Game> listTop5Games() {
-        return gameRepository.findTopFiveGames()
-                .orElseThrow(() -> new ApiNotFoundException("List of games is empty."));
+    public List<GameDTO> listAll() {
+        List<Game> games = gameRepository.findAll();
+
+        return games.stream().map(GameDTO::new).toList();
     }
+
 }

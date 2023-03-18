@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -26,9 +24,10 @@ public class AccountInputDTO {
     @Email(message = "Email is invalid.")
     private String email;
 
+    @NotEmpty(message = "Password is required.")
+    @Size(min = 8, max = 20, message = "Password size must be between 8 and 20 characters.")
+    private String password;
+
     @NotEmpty(message = "Location is required.")
     private String location;
-
-    private List<GameDTO> games;
-
 }

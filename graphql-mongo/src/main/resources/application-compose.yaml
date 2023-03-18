@@ -1,0 +1,29 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /
+
+spring:
+  data:
+    mongodb:
+      host: mongo
+      port: 27017
+
+  graphql:
+    path: /graphql
+    graphiql:
+      enabled: true
+      path: /graphiql
+
+  devtools:
+    add-properties: false
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  cache:
+    disabled: true

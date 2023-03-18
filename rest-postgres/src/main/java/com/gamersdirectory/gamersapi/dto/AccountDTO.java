@@ -17,6 +17,6 @@ public class AccountDTO {
     private String nickname;
     private String email;
     private LocationDTO location;
-    private List<GameDTO> games;
+    private List<AccountGameDTO> games;
 
 }

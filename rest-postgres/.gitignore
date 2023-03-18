@@ -26,6 +26,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 HELP.md
+data/
+db-data/
 
 # File-based project format
 *.iws

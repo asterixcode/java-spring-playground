@@ -2,10 +2,13 @@ package com.gamersdirectory.gamersapi.controller;
 
 import com.gamersdirectory.gamersapi.data.request.GameRequest;
 import com.gamersdirectory.gamersapi.data.response.WebResponse;
-import com.gamersdirectory.gamersapi.domain.Game;
+import com.gamersdirectory.gamersapi.dto.GameDTO;
 import com.gamersdirectory.gamersapi.service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,14 +25,27 @@ public class GameController {
 
     private final GameService gameService;
 
-    @GetMapping("/all")
-    public List<Game> getAllGames() {
-        return gameService.listAll();
+    @Operation(description = "Get game by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved game",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GameDTO.class))}),
+            @ApiResponse(responseCode = "404", description = "Game not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<GameDTO> getGame(@PathVariable Long id) {
+        return ResponseEntity.ok(gameService.getGame(id));
     }
 
-    @GetMapping("/top5")
-    public List<Game> getListOf5Games() {
-        return gameService.listTop5Games();
+    @Operation(description = "Get all games")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved list",
+            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GameDTO.class))}),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/all")
+    public List<GameDTO> getAllGames() {
+        return gameService.listAll();
     }
 
     @PostMapping("")
